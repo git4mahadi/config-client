@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RefreshScope
 @RestController
@@ -17,6 +18,8 @@ public class MessageResource {
 
     @Value("${message: Salam Mahadi}")
     private String message;
+    @Value("${server.port}")
+    private Integer port;
     @Autowired
     private PersonRepository personRepository;
 
@@ -33,6 +36,10 @@ public class MessageResource {
 
     @GetMapping("/persons")
     public List<Person> getPersonList() {
-        return personRepository.findAll();
+        return personRepository.findAll().stream()
+                .map(o-> {
+                    o.setPort(this.port);
+                    return o;
+                }).collect(Collectors.toList());
     }
 }
