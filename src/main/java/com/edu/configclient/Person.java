@@ -11,6 +11,8 @@ public class Person {
     private Integer id;
     private String name;
     private Integer age;
+    @Transient
+    private Integer port;
 
     public Person() {
     }
@@ -44,12 +46,21 @@ public class Person {
         this.age = age;
     }
 
+    public Integer getPort() {
+        return port;
+    }
+
+    public void setPort(Integer port) {
+        this.port = port;
+    }
+
     @Override
     public String toString() {
         return "Person{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", age=" + age +
+                ", port=" + port +
                 '}';
     }
 }
